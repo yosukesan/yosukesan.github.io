@@ -113,32 +113,49 @@ po4a により、*.po ファイルを生成してから txt, html, tex-&gt;pdf �
 <div class="section" id="id4">
 <h3>3. 翻訳作業</h3>
 <blockquote>
-<ul class="simple">
-<li>README.translator を読み必要なツールをインストールする</li>
+<ul>
+<li><p class="first">README.translator を読み必要なツールをインストールする</p>
+</li>
 <li><dl class="first docutils">
 <dt>top dir で make すると時間がかかるので、以下でビルドする</dt>
-<dd><tt class="docutils literal">`
+<dd><p class="first last"><tt class="docutils literal">`
 make html LINGUA=ja architecture=amd64
-`</tt></dd>
+`</tt></p>
+</dd>
 </dl>
 </li>
 <li><dl class="first docutils">
 <dt>make updatepo しないと、*.po が更新されないので注意</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>一度やってしまい、日英の依存関係を更新しないまま push してしまった</li>
 </ul>
 </dd>
 </dl>
 </li>
-<li>CPU arch は *.bdk ファイルに記述があり、それにより判別している</li>
-<li>*.po ファイルを最新の状態にしたら、翻訳を開始する</li>
+<li><p class="first">CPU arch は *.bdk ファイルに記述があり、それにより判別している</p>
+</li>
+<li><p class="first">*.po ファイルを最新の状態にしたら、翻訳を開始する</p>
+</li>
 <li><dl class="first docutils">
 <dt>push すると salsa(gitlab) の CI pipeline に乗る</dt>
-<dd><ul class="first last">
+<dd><ul class="first last simple">
 <li>CI の設定をしないと、エラーで終了する</li>
 <li>トリガー起動するが、runner  用の *.yml が存在しないため</li>
 <li>ホストの URL は1 つにしたほうが良いので、CI による検証はせずに merge した</li>
 </ul>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>更新したあとは</dt>
+<dd><p class="first"><tt class="docutils literal">`
+make clean &amp;&amp; make updatepo
+`</tt>
+した後に、#,fuzzy キーワードを削除して
+<tt class="docutils literal">`
+make html LINGUA=ja architecture=amd64
+`</tt></p>
+<p class="last">このキーワードは、原文で変更があった場合に差分をある部分に挿入される。</p>
 </dd>
 </dl>
 </li>
